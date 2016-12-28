@@ -5,16 +5,22 @@
 extern "C" {
 #endif
 
+#include <stdint.h>
+
 typedef int foolib_result_t;
 #define FOOLIB_RESULT_SUCCESS 0
-#define FOOLIB_RESULT_ERROR 1
+#define FOOLIB_RESULT_ERROR_ALLOC_FAILED 101
+#define FOOLIB_RESULT_ERROR_BAD_STATE 102
+#define FOOLIB_RESULT_ERROR_NOT_FOUND 103
 
-typedef void* foolib_object_t;
+typedef int foolib_object_t;
+#define FOOLIB_OBJECT_ALLOC_FAILED 0
+
+foolib_result_t foolib_g_init();
+foolib_result_t foolib_g_destroy();
 
 foolib_object_t foolib_new();
-
 foolib_result_t foolib_delete(foolib_object_t object);
-
 foolib_result_t foolib_operation(foolib_object_t object);
 
 #ifdef __cplusplus

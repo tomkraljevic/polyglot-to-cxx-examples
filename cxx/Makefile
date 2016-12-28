@@ -13,4 +13,4 @@ main.o:
 	gcc -Wall -Werror -Iinclude -c test/main.c -o main.o
 
 a.out: foolib.a main.o
-	gcc -Wall -Werror foolib.a main.o
+	g++ -Wall -Werror foolib.a main.o

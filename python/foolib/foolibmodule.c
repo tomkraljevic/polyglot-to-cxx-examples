@@ -1,31 +1,68 @@
-
 #include <Python.h>
+#include "foolib/foolib_c.h"
 
 static PyObject *
-foolib_py_test(PyObject *self, PyObject *args)
+foolib_py_new(PyObject *self, PyObject *args)
 {
-    printf("TOM: foolib_py_test\n");
-    return Py_BuildValue("i", 0);
+    printf("TOM: foolib_py_new\n");
+    foolib_object_t object = foolib_new();
+    return Py_BuildValue("i", object);
 }
 
 static PyObject *
-foolib_py_test1(PyObject *self, PyObject *args)
+foolib_py_delete(PyObject *self, PyObject *args)
 {
-    printf("TOM: foolib_py_test1\n");
-    return Py_BuildValue("i", 1);
+    int object;
+    foolib_result_t rv;
+
+    printf("TOM: foolib_py_delete\n");
+    if (!PyArg_ParseTuple(args, "i", &object)) {
+        return NULL;
+    }
+    rv = foolib_delete(object);
+    return Py_BuildValue("i", rv);
+}
+
+static PyObject *
+foolib_py_operation(PyObject *self, PyObject *args)
+{
+    int object;
+    foolib_result_t rv;
+
+    printf("TOM: foolib_py_operation\n");
+    if (!PyArg_ParseTuple(args, "i", &object)) {
+        return NULL;
+    }
+    rv = foolib_operation(object);
+    return Py_BuildValue("i", rv);
 }
 
 static PyMethodDef FoolibPyMethods[] = {
-    {"test", foolib_py_test, METH_VARARGS,
-     "Test method."},
-    {"test1", foolib_py_test1, METH_VARARGS,
-     "Test method returns 1."},
+    {"new", foolib_py_new, METH_VARARGS,
+     "Create new object."},
+    {"operation", foolib_py_operation, METH_VARARGS,
+     "Operate on object."},
+    {"delete", foolib_py_delete, METH_VARARGS,
+     "Delete object."},
     {NULL, NULL, 0, NULL}        /* Sentinel */
 };
+
+static PyObject *FoolibError = NULL;
 
 PyMODINIT_FUNC
 initfoolib(void)
 {
-    (void) Py_InitModule("foolib", FoolibPyMethods);
-}
+    PyObject *m = NULL;
+    foolib_result_t rv;
 
+    printf("TOM: initfoolib\n");
+    (void) Py_InitModule("foolib", FoolibPyMethods);
+    rv = foolib_g_init();
+    if (rv != FOOLIB_RESULT_SUCCESS) {
+        printf("initfoolib: foolib_g_init() error\n");
+        FoolibError = PyErr_NewException("foolib.error", NULL, NULL);
+        Py_INCREF(FoolibError);
+        PyModule_AddObject(m, "error", FoolibError);
+        return;
+    }
+}
