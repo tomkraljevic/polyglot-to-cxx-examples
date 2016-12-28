@@ -9,3 +9,5 @@ http://www.swig.org/Doc3.0/SWIGDocumentation.html
 
 http://python-packaging-user-guide.readthedocs.io
 
+Packaging Tutorial
+https://python-packaging.readthedocs.io/en/latest/
