@@ -3,7 +3,8 @@ from distutils.core import setup, Extension
 module1 = Extension('foolib',
                     define_macros = [('MAJOR_VERSION', '1'),
                                      ('MINOR_VERSION', '0')],
-                    sources = ['foolibmodule.c'])
+                    include_dirs = ['../../cxx/include'],
+                    sources = ['foolibmodule.c', '../../cxx/src/foolib_c.cxx'])
 
 setup (name = 'foolib',
        version = '1.0',
