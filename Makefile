@@ -2,13 +2,13 @@ default: build test
 
 build:
 	$(MAKE) -C cxx build
-	$(MAKE) -C python/foolib build
+	$(MAKE) -C python build
 
 test:
-	python python/test/foolib_test.py
+	$(MAKE) -C python test
 	@echo
 	@echo ALL TESTS PASSED
 
 clean:
 	$(MAKE) -C cxx clean
-	$(MAKE) -C python/foolib clean
+	$(MAKE) -C python clean

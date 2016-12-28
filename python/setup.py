@@ -1,10 +1,11 @@
 from distutils.core import setup, Extension
+import os
 
 module1 = Extension('foolib',
                     define_macros = [('MAJOR_VERSION', '1'),
                                      ('MINOR_VERSION', '0')],
-                    include_dirs = ['../../cxx/include'],
-                    sources = ['foolibmodule.c', '../../cxx/src/foolib_c.cxx'])
+                    include_dirs = ['cxx/include'],
+                    sources = ['foolib/foolibmodule.c', os.path.join('cxx/src/foolib_c.cxx')])
 
 setup (name = 'foolib',
        version = '1.0',
