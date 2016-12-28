@@ -5,6 +5,7 @@
 foolib_object_t foolib_new()
 {
     assert(0);
+    return NULL;
 }
 
 int foolib_delete(foolib_object_t object)
