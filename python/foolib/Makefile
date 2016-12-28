@@ -6,5 +6,5 @@ build:	clean
 
 clean:
 	python setup.py clean
-	rm -rf build
+	rm -rf build cxx
 
