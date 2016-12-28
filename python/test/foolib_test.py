@@ -1,10 +1,10 @@
 import foolib
 
 def test():
-    model = foolib.new()
+    model = foolib.c_new()
     print(model)
-    foolib.operation(model)
-    foolib.delete(model)
+    foolib.c_operation(model)
+    foolib.c_delete(model)
 
 test()
 test()

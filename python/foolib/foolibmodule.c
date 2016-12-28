@@ -38,11 +38,11 @@ foolib_py_operation(PyObject *self, PyObject *args)
 }
 
 static PyMethodDef FoolibPyMethods[] = {
-    {"new", foolib_py_new, METH_VARARGS,
+    {"c_new", foolib_py_new, METH_VARARGS,
      "Create new object."},
-    {"operation", foolib_py_operation, METH_VARARGS,
+    {"c_operation", foolib_py_operation, METH_VARARGS,
      "Operate on object."},
-    {"delete", foolib_py_delete, METH_VARARGS,
+    {"c_delete", foolib_py_delete, METH_VARARGS,
      "Delete object."},
     {NULL, NULL, 0, NULL}        /* Sentinel */
 };
