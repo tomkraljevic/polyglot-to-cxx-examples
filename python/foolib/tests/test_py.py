@@ -4,7 +4,7 @@ import foolib
 
 class TestPy(unittest.TestCase):
     def test_load_model(self):
-        foolib.load_model()
+        foolib.load_mojo_model()
 
     def test_py_wrapper(self):
         w = foolib.FoolibWrapper()

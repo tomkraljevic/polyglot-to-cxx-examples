@@ -12,6 +12,6 @@ class FoolibWrapper:
         self.object = _foolib.c_delete(self.object)
 
 
-def load_model():
+def load_mojo_model():
     m = FoolibWrapper()
     return m
