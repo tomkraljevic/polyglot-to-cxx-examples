@@ -1,7 +1,7 @@
 from distutils.core import setup, Extension
 import os
 
-module1 = Extension('foolib',
+module1 = Extension('_foolib',
                     define_macros = [('MAJOR_VERSION', '1'),
                                      ('MINOR_VERSION', '0')],
                     include_dirs = ['cxx/include'],
@@ -16,5 +16,5 @@ setup (name = 'foolib',
        long_description = '''
 This is really just a demo package.
 ''',
+       packages = ['foolib'],
        ext_modules = [module1])
-

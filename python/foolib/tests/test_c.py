@@ -1,12 +1,14 @@
 import unittest
-import foolib
+import _foolib
+
 
 class TestC(unittest.TestCase):
-    def test_c_model_lifecycle(self):
-        model = foolib.c_new()
+    def test_c_lifecycle(self):
+        model = _foolib.c_new()
         print(model)
-        foolib.c_operation(model)
-        foolib.c_delete(model)
+        _foolib.c_operation(model)
+        _foolib.c_delete(model)
+
 
 if __name__ == "__main__":
     unittest.main()

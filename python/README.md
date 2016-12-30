@@ -19,3 +19,6 @@ Handy way to see where a module is getting picked up from:
 > import imp
 > imp.find_module('numpy')
 (None, '/usr/local/lib/python2.7/dist-packages/numpy', ('', '', 5))
+
+
+https://docs.python.org/3/distutils/setupscript.html#extension-names-and-packages

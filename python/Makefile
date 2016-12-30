@@ -7,6 +7,7 @@ build:	clean
 
 test:
 	python foolib/tests/test_c.py
+	python foolib/tests/test_py.py
 
 clean:
 	-pip uninstall --yes foolib

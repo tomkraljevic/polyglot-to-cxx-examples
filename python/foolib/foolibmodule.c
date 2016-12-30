@@ -50,13 +50,13 @@ static PyMethodDef FoolibPyMethods[] = {
 static PyObject *FoolibError = NULL;
 
 PyMODINIT_FUNC
-initfoolib(void)
+init_foolib(void)
 {
     PyObject *m = NULL;
     foolib_result_t rv;
 
     printf("TOM: initfoolib\n");
-    (void) Py_InitModule("foolib", FoolibPyMethods);
+    (void) Py_InitModule("_foolib", FoolibPyMethods);
     rv = foolib_g_init();
     if (rv != FOOLIB_RESULT_SUCCESS) {
         printf("initfoolib: foolib_g_init() error\n");
