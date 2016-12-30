@@ -1,4 +1,5 @@
 import h2omojo
+import sys
 
 
 # To avoid bouncing between Python and C++ languages, the load_mojo_model() returns an Easy API object which
@@ -10,7 +11,7 @@ import h2omojo
 # The Python wrapper has a __del__ method which naturally releases the underlying C++ object when the
 # refcount drops to 0.
 
-model = h2omojo.load_mojo_model(mojo_path="/path/to/mojo.zip",
+model = h2omojo.load_mojo_model(mojo_path='/path/to/mojo.zip',
                                 convert_unknown_categorical_levels_to_na=False)
 
 
@@ -54,10 +55,11 @@ row['GLEASON'] = '6'
 
 p = model.predict_binomial(row)
 
-print("Has penetrated the prostatic capsule (1=yes; 0=no): " + p.label)
-print("Class probabilities: ")
+print('Has penetrated the prostatic capsule (1=yes; 0=no): ' + p.label)
+sys.stdout.write('Class probabilities: ')
 for i in range(len(p.class_probabilities)):
     if i > 0:
-        print(",")
-    print(p.class_probabilities[i])
+        sys.stdout.write(',')
+    sys.stdout.write(p.class_probabilities[i])
+sys.stdout.flush()
 print("")
