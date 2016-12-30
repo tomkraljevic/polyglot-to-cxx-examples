@@ -44,8 +44,6 @@ for (i in range(len(pred2))):
 # Easy API example
 #
 
-# Pure dict row case
-
 row = {}
 row['AGE'] = '68'
 row['RACE'] = '2'
