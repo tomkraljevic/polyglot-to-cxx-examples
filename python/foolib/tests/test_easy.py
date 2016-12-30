@@ -27,7 +27,14 @@ for (i in range(len(pred2))):
 # Easy API example
 #
 
-model = h2omojo.EasyPredictModelWrapper(rawModel)
+# To avoid bouncing between Python and C++ languages, the read_mojo() returns an Easy API object which also
+# exposes the raw MojoModel methods like score0().  This also avoids tricky reference issues.  C++ returns
+# an Easy API object instance which wraps a raw instance, but from Python's perspective, there is only one
+# object to deal with.
+#
+# The Python wrapper has a __del__ method which naturally releases the underlying C++ object when the
+# refcount drops to 0.
+model = rawModel
 
 # Pure dict row case
 
