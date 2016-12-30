@@ -30,7 +30,7 @@ row2[3] = 0
 row2[4] = 6
 
 pred2 = []
-n = model.getPredsSize()
+n = model.get_preds_size()
 for i in range(n):
     pred2.append(0.0)
 
