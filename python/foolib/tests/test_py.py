@@ -1,5 +1,5 @@
 import unittest
-from foolib import foolib
+import foolib
 
 
 class TestPy(unittest.TestCase):
