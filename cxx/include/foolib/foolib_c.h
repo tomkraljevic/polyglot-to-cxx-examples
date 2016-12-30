@@ -16,6 +16,8 @@ typedef int foolib_result_t;
 typedef int foolib_object_t;
 #define FOOLIB_OBJECT_ALLOC_FAILED 0
 
+extern int foolib_g_verbosity;
+
 foolib_result_t foolib_g_init();
 foolib_result_t foolib_g_destroy();
 

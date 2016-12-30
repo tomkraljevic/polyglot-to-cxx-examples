@@ -4,6 +4,8 @@
 #include <cstdio>
 #include <map>
 
+int foolib_g_verbosity = 0;
+
 typedef std::map<foolib_object_t, foolib::Animal*> FoolibGlobalMap;
 FoolibGlobalMap *foolib_g_map = NULL;
 volatile foolib_object_t foolib_g_next_idx = 5000;
@@ -48,7 +50,11 @@ foolib_object_t foolib_new()
         foolib_g_next_idx++;
         (*foolib_g_map)[object] = a;
     }
-    printf("TOM: foolib_new: (%d)\n", object);
+
+    if (foolib_g_verbosity > 0) {
+        printf("%d = foolib_new\n", object);
+    }
+
     return object;
 }
 
@@ -56,31 +62,54 @@ foolib_result_t foolib_delete(foolib_object_t object)
 {
     // TODO:  make this atomic if needed.  Not needed for python because of GIL.
 
-    printf("TOM: foolib_delete (%d)\n", object);
+    foolib_result_t rv;
     FoolibGlobalMap::iterator it;
     it = foolib_g_map->find(object);
     if (it == foolib_g_map->end()) {
-        return FOOLIB_RESULT_ERROR_NOT_FOUND;
+        rv = FOOLIB_RESULT_ERROR_NOT_FOUND;
+        if (foolib_g_verbosity > 0) {
+            printf("%d = foolib_delete(%d)\n", rv, object);
+        }
+        goto done;
     }
 
-    foolib::Animal *a = (*foolib_g_map)[object];
-    foolib_g_map->erase(it);
-    delete a;
+    {
+        foolib::Animal *a = (*foolib_g_map)[object];
+        foolib_g_map->erase(it);
+        delete a;
+        rv = FOOLIB_RESULT_SUCCESS;
+    }
 
-    return FOOLIB_RESULT_SUCCESS;
+done:
+    if (foolib_g_verbosity > 0) {
+        printf("%d = foolib_delete(%d)\n", rv, object);
+    }
+
+    return rv;
 }
 
 foolib_result_t foolib_operation(foolib_object_t object)
 {
     // TODO:  make this atomic if needed.  Not needed for python because of GIL.
 
-    printf("TOM: foolib_operation (%d)\n", object);
+    foolib_result_t rv;
     FoolibGlobalMap::iterator it;
     it = foolib_g_map->find(object);
     if (it == foolib_g_map->end()) {
-        return FOOLIB_RESULT_ERROR_NOT_FOUND;
+        rv = FOOLIB_RESULT_ERROR_NOT_FOUND;
+        goto done;
     }
-    foolib::Animal *a = (*foolib_g_map)[object];
-    a->operation();
-    return FOOLIB_RESULT_SUCCESS;
+
+    {
+        foolib::Animal *a = (*foolib_g_map)[object];
+        a->operation();
+        rv = FOOLIB_RESULT_SUCCESS;
+    }
+
+done:
+    if (foolib_g_verbosity > 0) {
+        printf("%d = foolib_operation(%d)\n", rv, object);
+    }
+
+    return rv;
 }
